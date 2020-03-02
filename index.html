@@ -16,40 +16,39 @@
       <div class="container">
          <div class="cart">
             <div class="col-md-12 col-lg-10 mx-auto">
-               <div class="cart-item" id="cart1">
-                  <div class="row">
+               <div class="cart-item">
+                  <div class="row 1">
                      <div class="col-md-7 center-item">
                         <img src="images/product-1.png" alt="">
                         <h5>iPhone 11 128GB Black</h5>
                      </div>
-
                      <div class="col-md-5 center-item">
                         <div class="input-group number-spinner">
-                           <button class="btn btn-default" id="phone_minus"><i class="fas fa-minus"></i></button>
-                           <input type="text" class="form-control text-center" value="1" id="product_value_phone">
-                           <button class="btn btn-default" id="phone_plus"><i class="fas fa-plus"></i></button>
+                           <button id="phoneMinus" class="btn btn-default"><i class="fas fa-minus"></i></button>
+                           <input id="phoneValue" type="text" class="form-control text-center" value="1">
+                           <button id="phoneAdd" class="btn btn-default"><i class="fas fa-plus"></i></button>
                         </div>
-                        <h5 id="phone_price">$1219</h5>
-                        <img src="images/remove.png" alt="" class="remove-item" id="removePhone">
+                        <h5>$ <span id="price1">1219</span></h5>
+                        <img id="phoneRemove" src="images/remove.png" alt="" class="remove-item">
                      </div>
                   </div>
                </div>
-
-               <div class="cart-item" id="cart2">
-                  <div class="row">
+<!-- case -->
+               <div class="cart-item">
+                  <div class="row 2">
                      <div class="col-md-7 center-item mx-auto">
                         <img src="images/product-2.png" alt="">
                         <h5>iPhone 11 Silicone Case - Black</h5>
                      </div>
                      <div class="col-md-5 center-item">
                         <div class="input-group number-spinner">
-                           <button class="btn btn-default" id="case_minus"><i class="fas fa-minus"></i></button>
-                           <input type="text" class="form-control text-center" value="1" id="product_value_case">
-                           <button class="btn btn-default" id="case_plus"><i class="fas fa-plus"></i></button>
+                           <button id="caseMinus" class="btn btn-default"><i class="fas fa-minus"></i></button>
+                           <input id="caseValue" type="text" class="form-control text-center" value="1">
+                           <button id="casePlus" class="btn btn-default"><i class="fas fa-plus"></i></button>
 
                         </div>
-                        <h5>$<span id="case_total">59</span></h5>
-                        <img src="images/remove.png" alt="" class="remove-item" id="removeCase">
+                        <h5>$ <span id="price2">59</span></h5>
+                        <img id="caseRemove" src="images/remove.png" alt="" class="remove-item">
                      </div>
                   </div>
                </div>
@@ -58,15 +57,15 @@
                   <div class="row">
 
                      <div class="col-md-8">
-                        <h5>Subtotal: </h5>
+                        <h5>subTotal: </h5>
                         <h5>Tax:</h5>
                         <h5>Total:</h5>
                      </div>
 
                      <div class="col-md-4 status">
-                        <h5><span id="subTotal">$1,278</span></h5>
-                        <h5>$<span id="tax">0</span></h5>
-                        <h5><span id="netTotal">$1,278</span></h5>
+                        <h5>$ <span id="subTotal">1278</span></h5>
+                        <h5>$0</h5>
+                        <h5>$ <span id="total">1278</span></h5>
                      </div>
                   </div>
                </div>
@@ -78,109 +77,59 @@
       </div>
    </section>
 
+
    <script>
-      // phone
-      const phoneAdd = document.getElementById("phone_plus");
+      const phoneAdd = document.getElementById("phoneAdd");
       phoneAdd.addEventListener("click",function(){
-         const productValue = document.getElementById("product_value_phone").value++;
-         const phoneTotal = document.getElementById("phone_total").innerText;
-         const phonePrice = parseFloat(phoneTotal);
-         const addPhone = phonePrice + 1219;
-         document.getElementById("phone_total").innerText = addPhone;
-
-         const subTotal = document.getElementById("subTotal").innerText;
-         const total = parseFloat(subTotal);
-         const phoneTotalValue = total + 1219;
-         document.getElementById("subTotal").innerText = phoneTotalValue;
-         document.getElementById("netTotal").innerText = phoneTotalValue;
+         newPrice("phoneValue","price1",1,1219); 
       })
-      const phoneRemove = document.getElementById("phone_minus");
+      phoneMinus.addEventListener("click",function(){
+         newPrice("phoneValue","price1",-1,1219); 
+      })
       phoneRemove.addEventListener("click",function(){
-         const phone_productValue = document.getElementById("product_value_phone");
-         if(phone_productValue.value <=0 && phoneRemove <=0){
-            phoneRemove = 0;
-         }
-         else{
-            phone_productValue.value--;
-         };
-         const phoneTotal = document.getElementById("phone_total").innerText;
-         const phonePrice = parseFloat(phoneTotal);
-         const removePhone = phonePrice - 1219;
-         document.getElementById("phone_total").innerText = removePhone;
-
-         const subTotal = document.getElementById("subTotal").innerText;
-         const phoneOne = parseFloat(phoneTotal);
-         const phone_minusValue = phoneOne - 1219;
-         document.getElementById("subTotal").innerText = phone_minusValue;
-         document.getElementById("netTotal").innerText = phone_minusValue;
+         removeProduct("phoneValue","price1");
       })
-      // case
-      const caseAdd = document.getElementById("case_plus");
-      caseAdd.addEventListener("click",function(){
-         const productValue = document.getElementById("product_value_case").value++;
-         const caseTotal = document.getElementById("case_total").innerText;
-         const casePrice = parseFloat(caseTotal);
-         const addCase = casePrice + 59;
-         document.getElementById("case_total").innerText = addCase;
-
-         const subTotal = document.getElementById("subTotal").innerText;
-         const total = parseFloat(subTotal);
-         const case_totalValue = total + 59;
-         document.getElementById("subTotal").innerText = case_totalValue;
-         document.getElementById("netTotal").innerText = case_totalValue;
+      casePlus.addEventListener("click",function(){
+         newPrice("caseValue","price2",1,59); 
       })
-      const caseRemove = document.getElementById("case_minus");
-      caseRemove.addEventListener("click", function(){
-            const case_productValue = document.getElementById("produce_value_case");
-            if(case_productValue.value <=0 && caseRemove <=0 ){
-            case_productValue.value = 0;
-            caseRemove = 0;
-         }
-         else{
-            case_productValue.value--;
-         };
-            const caseTotal = document.getElementById("case_total").innerText;
-            const casePrice =  parseFloat(caseTotal);
-            const removeCase = casePrice - 59 ;
-            document.getElementById("case_total").innerText = removeCase;
+      caseMinus.addEventListener("click",function(){
+         newPrice("caseValue","price2",-1,59); 
+      })
+      caseRemove.addEventListener("click",function(){
+         removeProduct("caseValue","price2");
+      })
+   
+      function newPrice(productId,priceId,sign,perPrice){
+         const productNo = getInputNumber(productId);
+         const productPrice = getSpanNumber(priceId);
+         const subTotal = getSpanNumber("subTotal");
+         
+         document.getElementById(productId).value=productNo + sign;
+         document.getElementById(priceId).innerText=productPrice + (sign*perPrice);
+         document.getElementById("subTotal").innerText=subTotal + (sign*perPrice);
+         document.getElementById("total").innerText=subTotal + (sign*perPrice);
+      }
+      function getInputNumber(id){
+         const String = document.getElementById(id).value;
+         const number = parseFloat(String);
+         return number;
+      }
 
-            const subTotal = document.getElementById("subTotal").innerText;
-            const caseOne = parseFloat(subTotal);
-            const case_minusValue = caseOne - 59  ;
-            document.getElementById("subTotal").innerText = case_minusValue;
-            document.getElementById("netTotal").innerText = case_minusValue;
-         })
+      function getSpanNumber(id){
+         const String = document.getElementById(id).innerText;
+         const number = parseFloat(String);
+         return number;
+      }
+      function removeProduct(productId,priceId){
+         const productNo = getInputNumber(productId);
+         const productPrice = getSpanNumber(priceId);
+         const subTotal = getSpanNumber("subTotal");
 
-//    remove
-         const removeCase = document.getElementById("removeCase");
-         removeCase.addEventListener("click",function(){
-
-            const casePriceOne = document.getElementById("case_total").innerText;
-            const subTotal = document.getElementById("subTotal").innerText;
-            const totalOne  = parseFloat(subTotal);
-            const valueOne = totalOne - casePriceOne;
-
-            document.getElementById("subTotal").innerText = valueOne;
-            document.getElementById("netTotal").innerText = valueOne;
-        
-            const removeCaseTwo = document.getElementById("cart2");
-            removeCaseTwo.style.display = "none";
-            }) 
-            const removePhone = document.getElementById("removePhone");
-            removePhone.addEventListener("click",function(){
-               const PhonePriceOne = document.getElementById("phone_price").innerText;
-               const subTotal = document.getElementById("subTotal").innerText;
-               const totalTwo = parseFloat(subTotal);
-               const valueTwo = totalTwo - PhonePriceOne;
-
-               document.getElementById("subTotal").innerText = valueTwo;
-               document.getElementById("netTotal").innerText = valueTwo;
-
-               const removeCarTwo = document.getElementById("cart1");
-               removeCarTwo.style.display = "none";
-            })
-        
-
+         document.getElementById(productId).value=0;
+         document.getElementById(priceId).innerText=0;
+         document.getElementById("subTotal").innerText=subTotal - productPrice;
+         document.getElementById("total").innerText=subTotal - productPrice;
+      }
    </script>
 </body>
 </html>
